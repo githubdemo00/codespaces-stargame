@@ -1,0 +1,18 @@
+.square {
+    width: 150px;  /* Increase width */
+    height: 150px; /* Increase height */
+    background: lightgray;
+    border: 1px solid #999;
+    padding: 0;
+    font-size: 48px; /* Increase font size */
+    font-weight: bold;
+    line-height: 150px; /* Adjust line height to match height */
+    text-align: center;
+    cursor: pointer;
+}
+
+.board-row:after {
+    clear: both;
+    content: "";
+    display: table;
+}

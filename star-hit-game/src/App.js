@@ -1,16 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 import Game from './Game';
+import TicTacToe from './TicTacToe';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Game />
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [game, setGame] = useState(null);
+
+    const handleGameSelection = (selectedGame) => {
+        setGame(selectedGame);
+    };
+
+    return (
+        <div className="app-container">
+            {!game && (
+                <div className="game-selection">
+                    <div className="game-icon">🕹️</div>
+                    <h1 className="game-title">Choose Your Game</h1>
+                    <button className="game-button" onClick={() => handleGameSelection('star')}>
+                        Play Star Game
+                    </button>
+                    <button className="game-button" onClick={() => handleGameSelection('tictactoe')}>
+                        Play Tic Tac Toe
+                    </button>
+                </div>
+            )}
+            {game === 'star' && <Game />}
+            {game === 'tictactoe' && <TicTacToe />}
+        </div>
+    );
+};
 
 export default App;
