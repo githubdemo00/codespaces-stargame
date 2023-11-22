@@ -3,7 +3,6 @@
     "hostRequirements": {
       "cpus": 4
     },
-    "workspaceFolder": "/star-hit-game", // Add this line
     "waitFor": "onCreateCommand",
     "updateContentCommand": "npm install",
     "postCreateCommand": "",
