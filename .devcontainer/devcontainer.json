@@ -1,0 +1,33 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "hostRequirements": {
+      "cpus": 4
+    },
+    "workspaceFolder": "/star-hit-game", // Add this line
+    "waitFor": "onCreateCommand",
+    "updateContentCommand": "npm install",
+    "postCreateCommand": "",
+    "postAttachCommand": {
+      "server": "npm start"
+    },
+    "customizations": {
+      "name": "Demo App",
+      // add GitHub.Copilot extension
+      "extensions": [
+        "github.copilot"
+      ],
+      "codespaces": {
+        "openFiles": [
+          "src/App.js"
+        ]
+      }
+    },
+    "portsAttributes": {
+      "3000": {
+        "label": "Application",
+        "onAutoForward": "openPreview"
+      }
+    },
+    "forwardPorts": [3000]
+  }
+  
