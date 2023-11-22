@@ -4,7 +4,7 @@
       "cpus": 4
     },
     "waitFor": "onCreateCommand",
-    "updateContentCommand": "npm install",
+    "updateContentCommand": "cd ./star-hit-game && npm install",
     "postCreateCommand": "",
     "postAttachCommand": {
       "server": "npm start"
