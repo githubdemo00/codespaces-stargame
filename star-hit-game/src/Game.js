@@ -68,7 +68,8 @@ const Game = () => {
     }, []);
 
     return (
-        <div>
+        <div style={{ marginTop: '80px' }}>
+            <h1>Click the falling stars and avoid the bombs</h1>
             <h2>Score: {score}</h2>
             <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
                 {objects.map(obj => (
