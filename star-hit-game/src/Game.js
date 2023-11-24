@@ -68,6 +68,7 @@ const Game = () => {
 
     return (
         <div>
+            <h2></h2>
             <h2>Score: {score}</h2>
             <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
                 {objects.map(obj => (

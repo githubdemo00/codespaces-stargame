@@ -9,13 +9,14 @@
     "postAttachCommand": {
       "server": "cd ./star-hit-game && npm start"
     },
-    "customizations": {
-      "name": "Demo App",
-      // add GitHub.Copilot extension
-      "extensions": [
-        "github.copilot"
-      ],
-      "codespaces": {
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.copilot",
+				"GitHub.copilot-chat"
+			]
+    },
+    "codespaces": {
         "openFiles": [
           "src/App.js"
         ]
