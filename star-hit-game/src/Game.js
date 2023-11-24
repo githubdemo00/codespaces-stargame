@@ -1,10 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const Game = () => {
     const [score, setScore] = useState(0);
     const [objects, setObjects] = useState([]);
     const gameTime = 60000; // 1 minute in milliseconds
     const objectFallInterval = 100; // Interval for objects to fall
+
+    const createObject = useCallback(() => {
+        const newObject = {
+            id: Math.random(),
+            x: Math.random() * window.innerWidth,
+            y: 0,
+            size: Math.random() * (120 - 10) + 10, // Random size between 10 and 80
+            color: getRandomColor(),
+            type: Math.random() > 0.5 ? 'star' : 'bomb' // Randomly choose type
+        };
+        setObjects(prevObjects => [...prevObjects, newObject]);
+    }, []); // No dependencies
 
     useEffect(() => {
         const gameTimer = setTimeout(() => {
@@ -17,22 +29,11 @@ const Game = () => {
         }, objectFallInterval); // Create a new object every second
 
         return () => {
-            clearInterval(objectCreationInterval);
             clearTimeout(gameTimer);
+            clearInterval(objectCreationInterval);
         };
-    }, [score]);
+    }, [createObject, score]); // Added createObject and score to the dependency array
 
-    const createObject = () => {
-        const newObject = {
-            id: Math.random(),
-            x: Math.random() * window.innerWidth,
-            y: 0,
-            size: Math.random() * (120 - 10) + 10, // Random size between 10 and 80
-            color: getRandomColor(),
-            type: Math.random() > 0.5 ? 'star' : 'bomb' // Randomly choose type
-        };
-        setObjects(prevObjects => [...prevObjects, newObject]);
-    };
 
     const getRandomColor = () => {
         const letters = '0123456789ABCDEF';
@@ -68,7 +69,6 @@ const Game = () => {
 
     return (
         <div>
-            <h2></h2>
             <h2>Score: {score}</h2>
             <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
                 {objects.map(obj => (
