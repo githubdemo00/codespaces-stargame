@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import nodemailer from 'nodemailer';
 import './App.css';
 import Game from './Game';
 import TicTacToe from './TicTacToe';
 import StarWars from './StarWars'; // Import the StarWars component
+require('dotenv').config();
+
+const { CosmosClient } = require('@azure/cosmos');
 
 const App = () => {
     const [game, setGame] = useState(null);
@@ -28,28 +30,15 @@ const App = () => {
         event.preventDefault();
         setIsSubmitted(true);
 
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USERNAME,
-                pass: process.env.EMAIL_PASSWORD
-            }
-        });
-    
-        const mailOptions = {
-            from: process.env.EMAIL_USERNAME,
-            to: 'brendacampbell99@gmail.com',
-            subject: 'New Submission',
-            text: `Name: ${name}, Email: ${email}`
-        };
-    
-        transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
+        // Add the code to save the name and email to Cosmos DB
+        // Log the value from process.env.COSMOS_DB_ENDPOINT to the console
+        console.log(process.env.COSMOS_DB_ENDPOINT);
+
+        const client = new CosmosClient({ endpoint: process.env.COSMOS_DB_ENDPOINT, key: process.env.COSMOS_DB_KEY });
+        const database = client.database(process.env.COSMOS_DB_DATABASE);
+        const container = database.container(process.env.COSMOS_DB_CONTAINER);
+        const { resource: createdItem } = await container.items.create({ name, email });
+
     };
 
     const validateEmail = (email) => {
