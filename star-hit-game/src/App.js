@@ -5,8 +5,6 @@ import Game from './Game';
 import TicTacToe from './TicTacToe';
 import StarWars from './StarWars'; // Import the StarWars component
 
-const { CosmosClient } = require('@azure/cosmos');
-
 const App = () => {
     const [game, setGame] = useState(null);
     const [name, setName] = useState(''); // New state variable for the name
