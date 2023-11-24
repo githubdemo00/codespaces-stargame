@@ -3,7 +3,6 @@ import './App.css';
 import Game from './Game';
 import TicTacToe from './TicTacToe';
 import StarWars from './StarWars'; // Import the StarWars component
-require('dotenv').config();
 
 const { CosmosClient } = require('@azure/cosmos');
 
@@ -30,13 +29,9 @@ const App = () => {
         event.preventDefault();
         setIsSubmitted(true);
 
-        // Add the code to save the name and email to Cosmos DB
-        // Log the value from process.env.COSMOS_DB_ENDPOINT to the console
-        console.log(process.env.COSMOS_DB_ENDPOINT);
-
-        const client = new CosmosClient({ endpoint: process.env.COSMOS_DB_ENDPOINT, key: process.env.COSMOS_DB_KEY });
-        const database = client.database(process.env.COSMOS_DB_DATABASE);
-        const container = database.container(process.env.COSMOS_DB_CONTAINER);
+        const client = new CosmosClient({ endpoint: "https://dwpdatadump.documents.azure.com:443/", key: "f1OpaMv4dcUOBMFoOE8lyOLF6Fbvgot4U5a18mk70PzZc08E8JkOPNiWV2Es9iznUInWPxTQ7e2lACDbI19irg=="});
+        const database = client.database("dwp");
+        const container = database.container("dwpdata");
         const { resource: createdItem } = await container.items.create({ name, email });
 
     };
