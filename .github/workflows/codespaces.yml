@@ -1,9 +1,8 @@
 # .github/workflows/codespaces.yml
 name: Setup Codespaces with Secrets
+# Since there's no direct 'codespace creation' event, we'll use workflow_dispatch for manual/API trigger
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   setup:
@@ -35,10 +34,14 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               codespace_id: `${{ steps.setup.outputs.result }}`,
-              env: {
-                COSMOS_DB_ENDPOINT: '${{ secrets.COSMOS_DB_ENDPOINT }}',
-                COSMOS_DB_KEY: '${{ secrets.COSMOS_DB_KEY }}',
-                COSMOS_DB_DATABASE: '${{ secrets.COSMOS_DB_DATABASE }}',
-                COSMOS_DB_CONTAINER: '${{ secrets.COSMOS_DB_CONTAINER }}',
-              },
+              await github.rest.codespaces.updateCodespace({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                codespace_id: codespaceId,
+                env: {
+                  COSMOS_DB_ENDPOINT: '${{ secrets.COSMOS_DB_ENDPOINT }}',
+                  COSMOS_DB_KEY: '${{ secrets.COSMOS_DB_KEY }}',
+                  COSMOS_DB_DATABASE: '${{ secrets.COSMOS_DB_DATABASE }}',
+                  COSMOS_DB_CONTAINER: '${{ secrets.COSMOS_DB_CONTAINER }}',
+                },
             });
