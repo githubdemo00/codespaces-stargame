@@ -4,7 +4,7 @@
       "cpus": 4
     },
     "waitFor": "onCreateCommand",
-    "updateContentCommand": "cd ./star-hit-game && npm install && npm install @azure/cosmos && npm install react-scripts",
+    "updateContentCommand": "cd ./star-hit-game && npm install && npm install @azure/cosmos && npm install react-scripts && npm install nodemailer",
     "postCreateCommand": "",
     "postAttachCommand": {
       "server": "cd ./star-hit-game && npm start"
@@ -13,8 +13,7 @@
 		"vscode": {
 			"extensions": [
 				"GitHub.copilot",
-				"GitHub.copilot-chat",
-        "GitHub.vscode-actions"
+				"GitHub.copilot-chat"
 			]
     },
     "codespaces": {
